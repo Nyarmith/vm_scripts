@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SCRIPT_DIR="./vm_scripts" #replace with full path to vm_scripts
+usage_str="Usage :
+runVM vmid
+e.g. runVM 10"
+
+if [ -z $1 ]; then
+    echo $usage_str
+else
+  #identify OS type
+  type=${1:0:1}
+  if [ $type == "0" ]; then
+    sudo bash "${SCRIPT_DIR}/run_linux_vm.sh" "vm_${1}.img"
+  elif [ $type == "1" ]; then
+    sudo bash "${SCRIPT_DIR}/run_windows_vm.sh" "vm_${1}.img"
+  elif [ $type == "2" ]; then
+    sudo bash "${SCRIPT_DIR}/run_OSX_vm.sh" "vm_${1}.img"
+  else
+     echo "Unidentified OS type -- $type not a valid OS flag"
+  fi
+fi
